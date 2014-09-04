@@ -9,7 +9,7 @@ Known Issues
 
 * Only downloads first few, initally loaded pictures even though there are more
 * Counts as downloaded picture even though it did not downloaded one
-* 
+
 Features
 =========
 
