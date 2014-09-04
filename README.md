@@ -13,7 +13,7 @@ Known Issues
 Features
 =========
 
-Easy download for big "albums/gallerys" (not sure what they are called in imgur). <br />  
+Easy download for big "albums/gallerys" (not sure what they are called in imgur).  
 Names of pictures all lowercase. Spaces replaced with _ and no double download [Goes by Name though]
 
 Libs used
