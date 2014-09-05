@@ -8,14 +8,16 @@ import requests
 
 skipping = 0
 base_url = "http://imgur.com"
-sub_url = input("Please define where to download the pictures from: ")  # link to the album you want to download. example /r/Girls_smiling
+# link to the album you want to download. example /r/Girls_smiling
+sub_url = input("Please define where to download the pictures from: ")
+pictures = 1
 
-if sub_url.startswith("http://imgur.com"):
+if sub_url.startswith(base_url):
     sub_url = sub_url[16:]
 
 
 def web_spider(max_pictures):
-    pictures = 1
+    global pictures
     global skipping
     url = base_url + sub_url
     source_code = requests.get(url)
@@ -30,17 +32,16 @@ def web_spider(max_pictures):
             if skipping == 1:
                 skipping = 0
                 pictures -= 1
-            download_picture(base_url + href)
-            left = max_pictures - pictures
-            print("There are %s pictures left to download!" % left)
-            pictures += 1
+            download_picture(base_url + href, max_pictures)
+    print("No more pictures to download on this site")
 
 
-def download_picture(url):
+def download_picture(url, max_pictures):
     source_code = requests.get(url)
     plain_text = source_code.text
     soup = BeautifulSoup(plain_text)
     global skipping
+    global pictures
 
     for title in soup.findAll('h2', {'id': 'image-title'}):
         name = title.string
@@ -55,6 +56,9 @@ def download_picture(url):
                 ".gif") or str(image_source).endswith(".png") or str(image_source).endswith(".PNG") or str(image_source).endswith(".GIF"):
             request.urlretrieve(image_source, filename)
             print("Successfully downloaded", filename)
+            left = max_pictures - pictures
+            print("There are %s pictures left to download!" % left)
+            pictures += 1
 
 def start():
     max_download = input ("How many pictures should be downloaded at most? ")
