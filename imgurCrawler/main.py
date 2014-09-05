@@ -8,10 +8,13 @@ import requests
 
 skipping = 0
 base_url = "http://imgur.com"
-sub_url = ""  # link to the album you want to download. example /r/Girls_smiling
+sub_url = input("Please define where to download the pictures from: ")  # link to the album you want to download. example /r/Girls_smiling
+
+if sub_url.startswith("http://imgur.com"):
+    sub_url = sub_url[16:]
 
 
-def web_spider(max_pictures, start_picture=1):
+def web_spider(max_pictures):
     pictures = 1
     global skipping
     url = base_url + sub_url
@@ -23,20 +26,17 @@ def web_spider(max_pictures, start_picture=1):
     for link in soup.findAll('a', {'class': 'image-list-link'}):
         if pictures <= max_pictures:
             href = link.get('href')
-            # print(href)
-            if pictures < start_picture:
-                pictures += 1
+            print(href)
             if skipping == 1:
                 skipping = 0
                 pictures -= 1
-                continue
-            download_picture(base_url + href, "")
-            pictures += 1
+            download_picture(base_url + href)
             left = max_pictures - pictures
             print("There are %s pictures left to download!" % left)
+            pictures += 1
 
 
-def download_picture(url, name):
+def download_picture(url):
     source_code = requests.get(url)
     plain_text = source_code.text
     soup = BeautifulSoup(plain_text)
@@ -51,10 +51,17 @@ def download_picture(url, name):
             skipping = 1
             print("Skipping.. Already downloaded...")
             continue
-        if str(image_source).endswith(".jpg") or str(image_source).endswith(".JPG") or str(image_source).endswith(
-                ".gif"):
+        elif str(image_source).endswith(".jpg") or str(image_source).endswith(".JPG") or str(image_source).endswith(
+                ".gif") or str(image_source).endswith(".png") or str(image_source).endswith(".PNG") or str(image_source).endswith(".GIF"):
             request.urlretrieve(image_source, filename)
             print("Successfully downloaded", filename)
 
+def start():
+    max_download = input ("How many pictures should be downloaded at most? ")
+    if max_download.isnumeric():
+        web_spider(max_pictures=int(max_download))
+    else:
+        print("Error! You need to insert a numeric value!")
+        start()
 
-web_spider(start_picture=1, max_pictures=100)
+start()

@@ -14,7 +14,9 @@ Features
 =========
 
 Easy download for big "albums/gallerys" (not sure what they are called in imgur).  
-Names of pictures all lowercase. Spaces replaced with _ and no double download [Goes by Name though]
+Names of pictures all lowercase. Spaces replaced with _ and no double download [Goes by Name though]  
+You can easily select the ammount of pictures that are downloaded maximum  
+You can easily tell where to download from [Within imgut & only certain sort of albums so far]
 
 Libs used
 ==========
@@ -26,4 +28,4 @@ ToDo List
 ==========
 
 * chose save location manually
-* dynamic link so you do not need to edit the source just for different albums/gallerys
+* better Imgur support. Maybe check out if they have an API?
