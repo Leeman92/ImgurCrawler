@@ -27,7 +27,6 @@ def web_spider(max_pictures):
     soup = BeautifulSoup(plain_text)
     for link in soup.findAll('a', {'class': 'image-list-link'}):
         if pictures <= max_pictures:
-            href = link.get('href')
             print(href)
             if skipping == 1:
                 skipping = 0
