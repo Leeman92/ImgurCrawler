@@ -1,3 +1,4 @@
+__author__ = 'Patrick'
 from urllib import request
 from os import path
 
@@ -25,12 +26,13 @@ def web_spider(max_pictures, start_picture=1):
             # print(href)
             if pictures < start_picture:
                 pictures += 1
-            elif skipping == 1:
+            if skipping == 1:
                 skipping = 0
-            else:
-                download_picture(base_url + href, "")
-                pictures += 1
-                left = max_pictures - pictures
+                pictures -= 1
+                continue
+            download_picture(base_url + href, "")
+            pictures += 1
+            left = max_pictures - pictures
             print("There are %s pictures left to download!" % left)
 
 

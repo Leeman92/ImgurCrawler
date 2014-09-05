@@ -21,3 +21,9 @@ Libs used
 
 * beautifulsoup4 by Leonard Richardson
 * requests by Kenneth Reitz
+
+ToDo List
+==========
+
+* chose save location manually
+* dynamic link so you do not need to edit the source just for different albums/gallerys
