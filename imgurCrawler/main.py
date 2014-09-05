@@ -47,7 +47,7 @@ def download_picture(url, max_pictures):
         name = title.string
     for image in soup.findAll('link', {'rel': 'image_src'}):
         image_source = image.get('href')
-        filename = name.replace(',', '_').replace(' ', '_').lower().replace('?', '') + str(image_source)[-4:]
+        filename = name.replace(',', '_').replace(' ', '_').lower().replace('?', '').replace("\"", "").replace("/", "") + str(image_source)[-4:]
         if path.isfile(filename):
             skipping = 1
             print("Skipping.. Already downloaded...")
